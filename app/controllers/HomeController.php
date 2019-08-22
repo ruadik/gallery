@@ -2,41 +2,34 @@
 
 namespace App\controllers;
 
-use App\Services\QueryBilder;
+use App\Services\database;
 use League\Plates\Engine;
 use JasonGrimes\Paginator;
+use Delight\Auth\Auth;
 
-class HomeController
+class HomeController extends Controller
 {
-    private $queryBilder;
-    private $views;
-    private $imageController;
-
-    public function __construct(QueryBilder $queryBilder, Engine $views, ImageController $imageController)
-	{
-        $this->queryBilder = $queryBilder;
-        $this->views = $views;
-        $this->imageController = $imageController;
-    }
-
 	public function index()
 	{
-		$photos = $this->queryBilder->selectAll('photos', 8);
-//		var_dump($photos); exit();
-        echo $this->views->render('index', ['photos' =>	$photos]);
+		$photos = $this->database->selectAll('photos', 8);
+        echo $this->view->render('home', ['photos'   =>  $photos]);
 	}
 
-	public function upload(){
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $this->imageController->uploadImage();
-            Header('Location: /upload');
-        }else {
-            echo $this->views->render('upload');
-        }
+	public function category($id){
+
+	    $category = $this->database->selectOne('categories', 'id',  $id);
+
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $itemsPerPage = 8;
+
+        $photos = $this->database->getPaginatedFrom('photos', 'category_id', $id, $page, $itemsPerPage);
+        $totalItems  = $this->database->count('photos', 'category_id', $id);
+
+        $paginator = new Paginator($totalItems, $itemsPerPage, $page, "/category/$id?page=(:num)");
+	    echo $this->view->render('category', [
+	                                            'category' => $category,
+                                                'photos' => $photos,
+                                                'paginator' => $paginator
+                                             ]);
     }
-
-	public function show($id)
-	{
-		$this->database->find($id);
-	}
 }

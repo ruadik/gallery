@@ -12,6 +12,10 @@ $builder->addDefinitions([
         return new PDO('mysql:host=192.168.10.10; dbname=gallery; charset=utf8', 'homestead', 'secret');
     },
 
+    Delight\Auth\Auth::class   =>  function($container) {
+        return new Auth($container->get('PDO'));
+    },
+
     QueryFactory::class => function(){
         return new QueryFactory('mysql');
     },
@@ -23,19 +27,45 @@ $builder->addDefinitions([
     Engine::class => function(){
         return new Engine('../app/views');
     }
-
-
 ]);
+
+
+
 $container = $builder->build();
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
-    $r->addRoute('GET', '/', ['App\controllers\HomeController', 'index']);
 
-    $r->addRoute('GET', '/upload', ['App\controllers\HomeController', 'upload']);
-    $r->addRoute('POST', '/upload', ['App\controllers\HomeController', 'upload']);
+    $r->get('/', ['App\controllers\HomeController', 'index']);
+    $r->get('/category/{id:\d+}', ['App\controllers\HomeController', 'category']);
 
-    $r->addRoute('GET', '/register', ['App\controllers\RegistrationController', 'showForm']);
-    $r->addRoute('POST', '/register', ['App\controllers\RegistrationController', 'register']);
+
+    $r->get('/login', ['App\controllers\LoginController', 'showForm']);
+    $r->post('/login', ['App\controllers\LoginController', 'login']);
+    $r->get('/logout', ['App\controllers\LoginController', 'logout']);
+
+    $r->get('/register', ['App\controllers\RegistrationController', 'showForm']);
+    $r->post('/register', ['App\controllers\RegistrationController', 'register']);
+
+    $r->get('/email-verification', ['App\controllers\VerificationController', 'showForm']);
+    $r->get('/verify_email', ['App\controllers\VerificationController', 'verification']);
+    $r->post('/re_verify_email', ['App\controllers\VerificationController', 'reConfirmation']);
+
+    $r->get('/reset_password', ['App\controllers\PasswordResetController', 'showForm']);
+    $r->post('/reset_password', ['App\controllers\PasswordResetController', 'password_reset']);
+    $r->get('/reset_password/form', ['App\controllers\PasswordResetController', 'showResetForm']);
+    $r->post('/reset_password/update', ['App\controllers\PasswordResetController', 'UpdatingPassword']);
+
+    $r->get('/profile_info', ['App\controllers\ProfileController', 'showInfo']);
+    $r->post('/profile_info', ['App\controllers\ProfileController', 'postInfo']);
+
+    $r->get('/profile_security', ['App\controllers\ProfileController', 'showSecurity']);
+    $r->post('/profile_security', ['App\controllers\ProfileController', 'postSecurity']);
+
+
+    $r->get('/photos', ['App\controllers\PhotosController', 'index']);
+    $r->get('/photos/{id:\d+}', ['App\controllers\PhotosController', 'show']);
+
+
 
 
     // {id} must be a number (\d+)

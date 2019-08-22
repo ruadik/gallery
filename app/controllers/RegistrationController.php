@@ -2,19 +2,17 @@
 namespace App\Controllers;
 
 use App\Services\RegisterService;
-use League\Plates\Engine;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator as v;
 
-class RegistrationController
+class RegistrationController extends Controller
 {
     private $registration;
-    private $view;
 
-    public function __construct(Engine $view, RegisterService $registration)
+    public function __construct(RegisterService $registration)
     {
+        parent::__construct();
         $this->registration = $registration;
-        $this->view = $view;
     }
 
     public function showForm()

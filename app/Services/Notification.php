@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Services;
 
 class Notification
@@ -12,8 +11,13 @@ class Notification
         $this->mail = $mail;
     }
 
-    public function changMail($email, $username, $selector, $token){
-        $massage = 'http://gallery.loc/verify_email?selector=' . \urlencode($selector) . '&token=' . \urlencode($token);
-        $this->mail->send('adik13131331@gmail.com', $username, $massage);
+    public function changMail($email, $selector, $token){
+        $message = 'http://gallery.loc/verify_email?selector=' . \urlencode($selector) . '&token=' . \urlencode($token);
+        $this->mail->send('adik13131331@gmail.com', $message);
+    }
+
+    public function resetPassword($email, $selector, $token){
+        $message = 'http://gallery.loc/reset_password/form?selector=' . \urlencode($selector) . '&token=' . \urlencode($token);
+        $this->mail->send('adik13131331@gmail.com', $message);
     }
 }

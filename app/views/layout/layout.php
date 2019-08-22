@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="../../public/css/style.css">
 </head>
     <body>
-
+        <?php $this->insert('partials/navigation') ?>
         <?=$this->section('content')?>
-
+        <?php $this->insert('partials/footer') ?>
     </body>
 
 <script>

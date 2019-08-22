@@ -1,6 +1,6 @@
 <?php $this->layout('layout/layout') ?>
 
-
+<div class="wrapper">
 <section class="hero is-primary">
     <div class="hero-body">
         <div class="container">
@@ -69,7 +69,7 @@
                 <div class="field">
                     <div class="control">
                         <label class="checkbox">
-                            <input type="checkbox" name="terms">
+                            <input type="checkbox" name="terms" required>
                             Я согласен с <a href="#">правилами сайта</a>
                         </label>
                     </div>
@@ -80,7 +80,7 @@
                         <button class="button is-link" type="submit">Зарегистрироваться</button>
                     </div>
                     <div class="control">
-                        <a class="button is-text" href="index.html">Отмена</a>
+                        <a class="button is-text" href="/">Отмена</a>
                     </div>
                 </div>
             </form>
@@ -92,4 +92,4 @@
         <div class="column"></div>
     </div>
 </div>
-
+</div>

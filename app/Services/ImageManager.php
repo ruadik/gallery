@@ -9,7 +9,6 @@ class ImageManager{
 
     public function __construct(image $imageManager)
     {
-
         $this->imageManager = $imageManager;
     }
 
@@ -22,5 +21,9 @@ class ImageManager{
         $width = $this->imageManager->make($path.$filename)->width();
         $height = $this->imageManager->make($path.$filename)->height();
         return $dimensions = $width." x ". $height;
+    }
+
+    public function getImage($image){
+
     }
 }

@@ -16,7 +16,7 @@ namespace Illuminate\Support\Facades;
  * @method static bool runningUnitTests()
  * @method static bool isDownForMaintenance()
  * @method static void registerConfiguredProviders()
- * @method static \Illuminate\Support\ServiceProvider registerController(\Illuminate\Support\ServiceProvider|string $provider, bool $force = false)
+ * @method static \Illuminate\Support\ServiceProvider register(\Illuminate\Support\ServiceProvider|string $provider, bool $force = false)
  * @method static void registerDeferredProvider(string $provider, string $service = null)
  * @method static \Illuminate\Support\ServiceProvider resolveProvider(string $provider)
  * @method static void boot()

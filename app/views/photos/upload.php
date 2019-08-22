@@ -20,20 +20,20 @@
                         Главная
                     </a>
                     <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link" href="category.html">
+                        <a class="navbar-link" href="../category.html">
                             Категории
                         </a>
                         <div class="navbar-dropdown is-boxed">
-                            <a class="navbar-item" href="category.html">
+                            <a class="navbar-item" href="../category.html">
                                 Природа
                             </a>
-                            <a class="navbar-item" href="category.html">
+                            <a class="navbar-item" href="../category.html">
                                 Машины
                             </a>
-                            <a class="navbar-item" href="category.html">
+                            <a class="navbar-item" href="../category.html">
                                 Дизайн и Интерьер
                             </a>
-                            <a class="navbar-item" href="category.html">
+                            <a class="navbar-item" href="../category.html">
                                 Животные
                             </a>
                         </div>
@@ -82,7 +82,7 @@
                                 </p>
                             </div>
                             <p class="control">
-                                <a class="button is-info" href="login.html">
+                                <a class="button is-info" href="Auth/login.html">
                       <span class="icon">
                         <i class="fas fa-user"></i>
                       </span>
@@ -90,7 +90,7 @@
                                 </a>
                             </p>
                             <p class="control">
-                                <a class="button is-dark" href="login.html">
+                                <a class="button is-dark" href="Auth/login.html">
                       <span class="icon">
                         <i class="fas fa-window-close"></i>
                       </span>

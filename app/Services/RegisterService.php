@@ -10,20 +10,18 @@ class RegisterService
 {
     private $pdo;
     private $notification;
-//    private $auth;
+    private $auth;
 
-    public function __construct(PDO $pdo, Notification $notification)
+    public function __construct(PDO $pdo, Notification $notification, Auth $auth)
     {
         $this->pdo = $pdo;
         $this->notification = $notification;
-//        $this->auth = $auth;
+        $this->auth = $auth;
     }
 
     public function make($email, $password, $username){
-        $auth = new Auth($this->pdo);
-
-        $userId = $auth->register($email, $password, $username, function ($selector, $token) use ($email, $username)  {
-            $this->notification->changMail($email, $username, $selector, $token);
+        $userId = $this->auth->register($email, $password, $username, function ($selector, $token) use ($email)  {
+            $this->notification->changMail($email, $selector, $token);
         });
     }
 }

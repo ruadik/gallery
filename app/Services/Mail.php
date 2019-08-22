@@ -9,7 +9,7 @@ use Swift_SmtpTransport;
 class Mail
 {
 
-    public function send($email, $username, $massage){
+    public function send($email, $body){
 
         // Create the Transport
         $transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
@@ -21,8 +21,8 @@ class Mail
 // Create a message
         $message = (new Swift_Message('Информация с сайта gallery@.loc'))
             ->setFrom(['info@mail.com' => 'Ali RU'])
-            ->setTo([$email => $username])
-            ->setBody($massage);
+            ->setTo($email)
+            ->setBody($body);
 
 // Send the message
         return $result = $mailer->send($message);
