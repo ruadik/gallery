@@ -23,6 +23,7 @@ class RegistrationController extends Controller
     public function register()
     {
         $this->validate();
+
         try {
             $this->registration->make(
                 $_POST['email'],
@@ -47,6 +48,7 @@ class RegistrationController extends Controller
 
         return header('Location: \register');
     }
+
 
     private function validate()
     {

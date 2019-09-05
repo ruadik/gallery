@@ -21,6 +21,7 @@ class Controller
         $this->database = components(Database::class);
     }
 
+
     function checkForAccess()
     {
         if($this->auth->hasRole(Roles::USER)) { return redirect('/'); }

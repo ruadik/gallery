@@ -1,29 +1,54 @@
 <?php
 namespace App\Services;
 
-use Intervention\Image\ImageManager as image;
+use Intervention\Image\ImageManagerStatic as image;
 
 class ImageManager{
 
-    private $imageManager;
+    public $folder;
 
-    public function __construct(image $imageManager)
+    public function __construct()
     {
-        $this->imageManager = $imageManager;
+        $this->folder = config('uploadsFolder');
     }
 
+    public function uploadImage($image, $currentImage = null){
 
-    public function upload($path, $filename){
-        $this->imageManager->make($_FILES['image']['tmp_name'])->save($path . $filename);
+        if(!is_file($image['tmp_name']) && !is_uploaded_file($image['tmp_name'])) { return $currentImage; }
+
+        $this->deleteImage($currentImage);
+
+        $filename = strtolower(str_random(10).'.'.pathinfo($image['name'], PATHINFO_EXTENSION));
+        $img = image::make($image['tmp_name']);
+        $img->save($this->folder.$filename);
+        return $filename;
     }
 
-    public function get_dimensions($path, $filename){
-        $width = $this->imageManager->make($path.$filename)->width();
-        $height = $this->imageManager->make($path.$filename)->height();
-        return $dimensions = $width." x ". $height;
+    public function checkImageExist($path){
+        if($path != null && is_file($this->folder.$path) && file_exists($this->folder.$path)){
+            return true;
+            };
+    }
+
+    public function deleteImage($image){
+        if($this->checkImageExist($image)) {
+            unlink($this->folder.$image);
+        }
+    }
+
+    public function get_dimensions($image){
+        if($this->checkImageExist($image)) {
+            $width = image::make($this->folder . $image)->width();
+            $height = image::make($this->folder . $image)->height();
+            return $dimensions = $width . " x " . $height;
+        }
     }
 
     public function getImage($image){
-
+        if($this->checkImageExist($image)) {
+            return '/'. $this->folder . $image;
+        }
+        return '/img/no-user.png';
     }
+
 }

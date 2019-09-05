@@ -11,8 +11,17 @@ class HomeController extends Controller
 {
 	public function index()
 	{
-		$photos = $this->database->selectAll('photos', 8);
-        echo $this->view->render('home', ['photos'   =>  $photos]);
+
+        $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+
+        $itemsPerPage = 8;
+		$photos = $this->database->getPaginatedFromAll('photos', $currentPage, $itemsPerPage);
+        $totalItems = $this->database->countAll('photos');
+        $paginator = new Paginator($totalItems, $itemsPerPage, $currentPage, '/?page=(:num)');
+        echo $this->view->render('home', [
+                                            'photos' => $photos,
+                                            'paginator' => $paginator
+                                         ]);
 	}
 
 	public function category($id){
@@ -31,5 +40,24 @@ class HomeController extends Controller
                                                 'photos' => $photos,
                                                 'paginator' => $paginator
                                              ]);
+    }
+
+    public function user($id){
+
+        if(isset($_GET['page'])){
+            $currentPage = $_GET['page'];
+        }else{
+            $currentPage = 1;
+        }
+
+        $itemsPerPage = 8;
+	    $photos = $this->database->getPaginatedFrom('photos', 'user_id', $id, $currentPage, $itemsPerPage);
+        $totalItems = $this->database->count('photos','user_id', $id);
+//        dd('/photos/'.$id.'/user?page=(:num)');
+        $paginator = new Paginator($totalItems, $itemsPerPage, $currentPage, '/photos/'.$id.'/user?page=(:num)');
+	    echo $this->view->render('user', [
+	                                        'photos' => $photos,
+                                            'paginator' => $paginator
+                                         ]);
     }
 }

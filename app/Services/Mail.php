@@ -14,7 +14,7 @@ class Mail
         // Create the Transport
         $transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
             ->setUsername('adik13131331@gmail.com')
-            ->setPassword('Ler@Ler@');
+            ->setPassword('Ler@1313');
 
         $mailer = new Swift_Mailer($transport);
 

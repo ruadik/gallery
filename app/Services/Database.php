@@ -40,6 +40,14 @@ class Database{
         return $result;
     }
 
+    public function whereAll($table, $col, $id, $limit){
+        $select = $this->queryFactory->newSelect()->cols(['*'])->from($table)->where($col.' = :id')->bindValue('id', $id)->limit($limit);
+        $sth = $this->pdo->prepare($select->getStatement());
+        $sth->execute($select->getBindValues());
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     public function getPaginatedFrom($table, $col, $value, $page=1, $itemsPerPage=1){
         $select = $this->queryFactory->newSelect()->cols(['*'])->from($table)->where($col.' = :value')->bindValue('value', $value)->page($page)->setPaging($itemsPerPage);
         $sth = $this->pdo->prepare($select->getStatement());
@@ -48,7 +56,15 @@ class Database{
         return $result;
     }
 
-    public function count($table, $col, $value){
+    public function getPaginatedFromAll($table, $page=1, $itemsPerPage=1){
+        $select = $this->queryFactory->newSelect()->cols(['*'])->from($table)->page($page)->setPaging($itemsPerPage);
+        $sth = $this->pdo->prepare($select->getStatement());
+        $sth->execute($select->getBindValues());
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function count($table, $col=null, $value=null){
         $select = $this->queryFactory->newSelect()->cols(['*'])->from($table)->where($col.' = :value')->bindValue('value', $value);
         $sth = $this->pdo->prepare($select->getStatement());
         $sth->execute($select->getBindValues());
@@ -56,18 +72,30 @@ class Database{
         return $result;
     }
 
-    public function update($table, $id, $data){
-//        var_dump($table, $id, $data); exit();
+    public function countAll($table){
+        $select = $this->queryFactory->newSelect()->cols(['*'])->from($table);
+        $sth = $this->pdo->prepare($select->getStatement());
+        $sth->execute($select->getBindValues());
+        $result = count($sth->fetchAll(PDO::FETCH_ASSOC));
+        return $result;
+    }
 
+    public function update($table, $id, $data){
         $update=$this->queryFactory->newUpdate()->table($table)->cols($data)->where('id = :id')->bindValue('id', $id);
         $sth = $this->pdo->prepare($update->getStatement());
         $sth->execute($update->getBindValues());
     }
 
-    public function insert($table, $cols_values){
-        $insert = $this->queryFactory->newInsert()->into($table)->cols($cols_values);
+    public function insert($table, $data){
+        $insert = $this->queryFactory->newInsert()->into($table)->cols($data);
         $sth = $this->pdo->prepare($insert->getStatement());
         $sth->execute($insert->getBindValues());
+    }
+
+    public function delete($table, $col, $id){
+        $delete = $this->queryFactory->newDelete()->from($table)->where($col.'= :id')->bindValue('id', $id);
+        $sth = $this->pdo->prepare($delete->getStatement());
+        $sth->execute($delete->getBindValues());
     }
 
 }

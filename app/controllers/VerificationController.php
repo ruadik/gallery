@@ -12,6 +12,7 @@ class VerificationController extends Controller
     {
         parent::__construct();
         $this->notification = $notification;
+        if(!$this->auth->isLoggedIn()){redirect('/login');}
     }
 
     public function showForm(){

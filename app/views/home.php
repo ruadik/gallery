@@ -22,8 +22,8 @@
                         <div class="card">
                             <div class="card-image">
                                 <figure class="image is-4by3">
-                                    <a href="photo.html">
-                                        <img src="uploads/<?= $photo['image']; ?>" alt="Placeholder image">
+                                    <a href="photos/<?= $photo['id']; ?>">
+                                        <img src="<?= getImage($photo['image']); ?>" alt="Placeholder image">
                                     </a>
                                 </figure>
                             </div>
@@ -43,6 +43,7 @@
                 <?php endforeach; ?>
 
             </div>
+            <?= paginator($paginator) ?>
         </div>
     </section>
 </div>

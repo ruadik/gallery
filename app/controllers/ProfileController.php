@@ -12,6 +12,7 @@ class ProfileController extends Controller
     {
         parent::__construct();
         $this->profile = $profile;
+        if(!$this->auth->isLoggedIn()){redirect('/login');}
     }
 
     public function showInfo(){

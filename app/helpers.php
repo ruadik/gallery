@@ -1,6 +1,7 @@
 <?php
 
 use App\Services\Database;
+use App\Services\ImageManager;
 use App\Services\Roles;
 use Delight\Auth\Auth;
 use JasonGrimes\Paginator;
@@ -9,12 +10,41 @@ function paginator($paginator){
     include '../app/views/partials/paginator.php';
 }
 
+function getCategory($id)
+{
+    global $container;
+    $queryFactory = $container->get('Aura\SqlQuery\QueryFactory');
+    $pdo = $container->get('PDO');
+    $database = new Database($pdo, $queryFactory);
+    return $database->selectOne('categories', 'id', $id);
+}
+
 function getAllcategories(){
     global $container;
     $QueryFactory = $container->get('Aura\SqlQuery\QueryFactory');
     $PDO = $container->get('PDO');
     $database = new Database($PDO, $QueryFactory);
     return $database->selectAll('categories');
+}
+
+function config($field){
+    $array = require '../app/config.php';
+    return array_get($array, $field);
+}
+
+function abort($type)
+{
+    switch ($type) {
+        case 404:
+            $view = components(\League\Plates\Engine::class);
+            echo $view->render('errors/404');exit;
+            break;
+    }
+}
+
+function getImage($image){
+    $imageManager = new ImageManager();
+    return $imageManager->getImage($image);
 }
 
 function uploadedDate($timestamp)
@@ -29,6 +59,10 @@ function back()
     exit;
 }
 
+function dd($data){
+    var_dump($data); exit();
+};
+
 function auth()
 {
     global $container;
@@ -39,4 +73,9 @@ function components($name)
 {
     global $container;
     return $container->get($name);
+}
+
+function redirect($path){
+    header("Location: $path");
+    exit();
 }

@@ -1,13 +1,21 @@
 <?php
 namespace App\controllers;
 
+use App\Services\Roles;
+
 class LoginController extends Controller
 {
     public function showForm(){
+
+        $this->checkForAccess();
+
         echo $this->view->render('/auth/login');
     }
 
     public function login(){
+
+        $this->checkForAccess();
+
         try {
             $rememberDuration = null;
 
@@ -18,7 +26,7 @@ class LoginController extends Controller
 
             $this->auth->login($_POST['email'], $_POST['password'], $rememberDuration);
 
-            return header('Location: /');
+            return redirect('/');
         }
         catch (\Delight\Auth\InvalidEmailException $e) {
             die('Wrong email address');
