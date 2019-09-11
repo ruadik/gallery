@@ -21,7 +21,7 @@
                 </ul>
               </div>
 
-               <form action="/profile_info" method="POST">
+               <form action="/profile_info" method="POST" enctype="multipart/form-data">
                   <div class="is-clearfix"></div>
                     <div class="columns is-centered">
                       <div class="column is-half">
@@ -45,6 +45,18 @@
                             </span>
                           </div>
                         </div>
+
+                          <div class="field">
+                          <div class="form-group">
+                              <label class="label">Аватар</label>
+                              <img src="<?= getImage($user['image'])?>" width="200" alt="">
+                              <br>
+                              <input type="file" id="exampleInputEmail1" name="image">
+                              <br>
+                              <br>
+                          </div>
+                          </div>
+
 
                         <div class="control">
                           <button class="button is-link">Обновить</button>

@@ -1,5 +1,5 @@
 <?php
-namespace App\Controllers\Admin;
+namespace App\controllers\admin;
 
 use App\Controllers\Controller as MainController;
 use App\Services\Roles;

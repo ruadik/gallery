@@ -62,8 +62,8 @@
                     </div>
                 </div>
                 <div class="field">
-                    <p>Забыли пароль? <b><a href="reset_password">Восстановление пароля</a></b></p>
-                    <p>Не пришло письмо подтверждения? <b><a href="email-verification">Переотправить</a></b></p>
+                    <p>Забыли пароль? <b><a href="/reset_password">Восстановление пароля</a></b></p>
+                    <p>Не пришло письмо подтверждения? <b><a href="/email_verification">Переотправить</a></b></p>
                 </div>
               </form>
 

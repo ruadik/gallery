@@ -54,7 +54,7 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->get('/register', ['App\controllers\RegistrationController', 'showForm']);
     $r->post('/register', ['App\controllers\RegistrationController', 'register']);
 
-    $r->get('/email-verification', ['App\controllers\VerificationController', 'showForm']);
+    $r->get('/email_verification', ['App\controllers\VerificationController', 'showForm']);
     $r->get('/verify_email', ['App\controllers\VerificationController', 'verification']);
     $r->post('/re_verify_email', ['App\controllers\VerificationController', 'reConfirmation']);
 
@@ -108,6 +108,14 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
 
 
         $r->get('users', ['App\controllers\admin\UsersController', 'index']);
+
+        $r->get('users/create', ['App\controllers\admin\UsersController', 'create']);
+        $r->post('users/store', ['App\controllers\admin\UsersController', 'store']);
+
+        $r->get('users/edit/{id:\d+}', ['App\controllers\admin\UsersController', 'edit']);
+        $r->post('users/update/{id:\d+}', ['App\controllers\admin\UsersController', 'update']);
+
+        $r->get('users/delete/{id:\d+}', ['App\controllers\admin\UsersController', 'delete']);
 
 
 

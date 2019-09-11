@@ -27,6 +27,18 @@ function getAllcategories(){
     return $database->selectAll('categories');
 }
 
+function getRole($key){
+    return Roles::getRole($key);
+}
+
+function getVerification($key){
+    if($key == 1){
+        return 'Верифицирован';
+    }else{
+        return 'Не верефицирован';
+    }
+}
+
 function config($field){
     $array = require '../app/config.php';
     return array_get($array, $field);

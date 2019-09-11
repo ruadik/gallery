@@ -33,7 +33,7 @@
                     <div class="card-content">
                       <div class="media my-photo">
                             <div class="media-left">
-                                  <p class="title is-5"><a href="category.html"><?= $photo['title']; ?></a></p>
+                                  <p class="title is-5"><a href="#"><?= $photo['title']; ?></a></p>
                                   <p class="title is-5">
                                     <a href="/photos/<?= $photo['id']?>/edit" class="button is-warning">
                                       <i class="fa fa-edit"></i>

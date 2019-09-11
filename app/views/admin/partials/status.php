@@ -1,6 +1,5 @@
-<?php //if(auth()->isNormal()):?>
 <?php if($status == 0):?>
-      <span class="btn btn-success">Активный</span>
+    <span class="btn btn-success">Активный</span>
 <?php else: ?>
-      <span class="btn btn-danger">Забанен</span>
-<?php endif; ?>
+    <span class="btn btn-danger">Забанен</span>
+<?php endif;?>

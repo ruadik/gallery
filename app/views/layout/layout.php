@@ -6,7 +6,7 @@
     <title>Hello Bulma!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
-    <link rel="stylesheet" href="../../public/css/style.css">
+    <link rel="stylesheet" href="../public/css/style.css">
 </head>
     <body>
         <?php $this->insert('partials/navigation') ?>

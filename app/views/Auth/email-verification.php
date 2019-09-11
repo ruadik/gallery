@@ -40,15 +40,15 @@
                 <button class="button is-link">Отправить</button>
               </div>
               <div class="control">
-                <a class="button is-text" href="index.html">Отмена</a>
+                <a class="button is-text" href="/">Отмена</a>
               </div>
             </div>
           </form>
 
 
             <div class="field">
-              <p>Нет аккаунта? <b><a href="register.html">Регистрация</a></b></p>
-              <p>Забыли пароль? <b><a href="password-reset.html">Восстановление пароля</a></b></p>
+              <p>Нет аккаунта? <b><a href="/register">Регистрация</a></b></p>
+              <p>Забыли пароль? <b><a href="/reset_password">Восстановление пароля</a></b></p>
             </div>
           </div>
           <div class="column"></div>

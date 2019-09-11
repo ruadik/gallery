@@ -12,7 +12,6 @@ class VerificationController extends Controller
     {
         parent::__construct();
         $this->notification = $notification;
-        if(!$this->auth->isLoggedIn()){redirect('/login');}
     }
 
     public function showForm(){
@@ -20,24 +19,30 @@ class VerificationController extends Controller
     }
 
     public function verification(){
+
         try {
             $this->auth->confirmEmail($_GET['selector'], $_GET['token']);
 
-            echo 'Email address has been verified';
+            flash()->success('Email address has been verified');
+            return Header('Location: /login');
         }
         catch (\Delight\Auth\InvalidSelectorTokenPairException $e) {
-            die('Invalid token');
+            flash()->success('Invalid token');
+            return Header('Location: /login');
         }
         catch (\Delight\Auth\TokenExpiredException $e) {
-            die('Token expired');
+            flash()->success('Token expired');
+            return Header('Location: /login');
         }
         catch (\Delight\Auth\UserAlreadyExistsException $e) {
-            die('Email address already exists');
+            flash()->success('Email address already exists');
+            return Header('Location: /login');
         }
         catch (\Delight\Auth\TooManyRequestsException $e) {
-            die('Too many requests');
+            flash()->success('Too many requests');
+            return Header('Location: /login');
         }
-        return Header('Location: /login');
+
     }
 
     public function reConfirmation(){

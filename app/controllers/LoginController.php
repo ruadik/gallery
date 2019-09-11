@@ -26,6 +26,8 @@ class LoginController extends Controller
 
             $this->auth->login($_POST['email'], $_POST['password'], $rememberDuration);
 
+            $this->checkIsBanned();
+
             return redirect('/');
         }
         catch (\Delight\Auth\InvalidEmailException $e) {
@@ -51,5 +53,15 @@ class LoginController extends Controller
         catch (\Delight\Auth\NotLoggedInException $e) {
             die('Not logged in');
         }
+    }
+
+
+    public function checkIsBanned(){
+        if($this->auth->isBanned())
+        {
+            $this->auth->logOut();
+            flash()->warning('Вы забанены, обратитесь к администратору!');
+            redirect('/login');
+        };
     }
 }
